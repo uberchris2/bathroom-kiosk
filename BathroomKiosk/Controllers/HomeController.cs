@@ -21,8 +21,7 @@ namespace BathroomKiosk.Controllers
             ViewBag.High = forecast.forecast.simpleforecast.forecastday[0].high.fahrenheit;
             ViewBag.Low = forecast.forecast.simpleforecast.forecastday[0].low.fahrenheit;
             ViewBag.Conditions = forecast.forecast.simpleforecast.forecastday[0].conditions;
-
-
+            
             return View();
         }
     }
