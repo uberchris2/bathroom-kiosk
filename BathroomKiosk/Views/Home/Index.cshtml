@@ -1,7 +1,4 @@
-﻿
-
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
 <head>
     <title>Bathroom Kiosk</title>
@@ -9,7 +6,10 @@
 </head>
 <body>
     <div class="container body-content">
-        <h1>test</h1>
+        <h1>@ViewBag.High</h1>
+        <h1>@ViewBag.Low</h1>
+        <h1>@ViewBag.Conditions</h1>
+        <h1>@DateTime.Now.ToString("h:mm")</h1>
     </div>
     @Scripts.Render("~/bundles/bootstrap")
 </body>
