@@ -1,23 +1,15 @@
-﻿using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Web.Mvc;
-using Newtonsoft.Json;
+﻿using System.Web.Mvc;
+using BathroomKiosk.Services;
 
 namespace BathroomKiosk.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly WundergroundApi _wundergroundApi = new WundergroundApi();
 
         public ActionResult Index()
         {
-            string response;
-            using (var client = new HttpClient())
-            {
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                response = client.GetStringAsync("http://api.wunderground.com/api/APIKEY/forecast/q/63101.json").Result;
-            }
-            dynamic forecast = JsonConvert.DeserializeObject(response);
+            var forecast = _wundergroundApi.Get("forecast/q/63101.json");
             ViewBag.High = forecast.forecast.simpleforecast.forecastday[0].high.fahrenheit;
             ViewBag.Low = forecast.forecast.simpleforecast.forecastday[0].low.fahrenheit;
             ViewBag.Conditions = forecast.forecast.simpleforecast.forecastday[0].conditions;
