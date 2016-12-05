@@ -5,7 +5,7 @@ namespace BathroomKiosk.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly WundergroundApi _wundergroundApi = new WundergroundApi();
+        private readonly ApiCache _wundergroundApi = new ApiCache(new WundergroundApi());
 
         public ActionResult Index()
         {

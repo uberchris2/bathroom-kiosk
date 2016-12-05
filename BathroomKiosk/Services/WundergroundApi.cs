@@ -28,4 +28,5 @@ namespace BathroomKiosk.Services
             return JsonConvert.DeserializeObject(result);
         }
     }
+    
 }
