@@ -9,6 +9,11 @@ namespace BathroomKiosk.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult Forecast()
+        {
             var forecast = _wundergroundApi.Get("forecast/q/63101.json");
             ViewBag.High = forecast.forecast.simpleforecast.forecastday[0].high.fahrenheit;
             ViewBag.Low = forecast.forecast.simpleforecast.forecastday[0].low.fahrenheit;

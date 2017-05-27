@@ -5,12 +5,16 @@
     @Styles.Render("~/Content/css")
 </head>
 <body>
-    <div class="container body-content">
-        <h1>@ViewBag.Conditions</h1>
-        <h1>@ViewBag.High</h1>
-        <h1>@ViewBag.Low</h1>
-        <h1>@TimeZoneInfo.ConvertTimeBySystemTimeZoneId(DateTime.Now, "Central Standard Time").ToString("h:mm")</h1>
-    </div>
-@*    @Scripts.Render("~/bundles/bootstrap")*@
+<div id="contents">Loading...</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+<script>
+    $(document).ready(reload);
+
+    function reload() {
+        $("#contents").load("@Url.Action("Forecast")");
+        setTimeout(reload, 10000);
+    }
+</script>
 </body>
 </html>
