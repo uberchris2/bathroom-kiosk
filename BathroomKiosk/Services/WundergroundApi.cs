@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -10,12 +9,10 @@ namespace BathroomKiosk.Services
     {
         public dynamic Get(string uri)
         {
-            string result = null;
+            string result;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("http://api.wunderground.com/api/APIKEY/");
-                client.DefaultRequestHeaders.Accept.Clear();
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                client.BaseAddress = new Uri("https://api.darksky.net/forecast/APIKEY/");
                 var success = false;
                 Task<string> response = null;
                 for (var tryCount = 0; !success && tryCount < 3; tryCount++)

@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using BathroomKiosk.Services;
 
 namespace BathroomKiosk.Controllers
@@ -14,10 +15,10 @@ namespace BathroomKiosk.Controllers
 
         public ActionResult Forecast()
         {
-            var forecast = _wundergroundApi.Get("forecast/q/63101.json");
-            ViewBag.High = forecast.forecast.simpleforecast.forecastday[0].high.fahrenheit;
-            ViewBag.Low = forecast.forecast.simpleforecast.forecastday[0].low.fahrenheit;
-            ViewBag.Conditions = forecast.forecast.simpleforecast.forecastday[0].conditions;
+            var forecast = _wundergroundApi.Get("38.628144,-90.192860?exclude=minutely,hourly,alerts,flags");
+            ViewBag.High = Math.Round((float)forecast.daily.data[0].temperatureHigh);
+            ViewBag.Low = Math.Round((float)forecast.daily.data[0].temperatureLow);
+            ViewBag.Conditions = ((string)forecast.daily.data[0].summary).Replace(".", "");
             
             return View();
         }
