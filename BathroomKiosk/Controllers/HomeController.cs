@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using BathroomKiosk.Services;
 
@@ -13,9 +14,9 @@ namespace BathroomKiosk.Controllers
             return View();
         }
 
-        public ActionResult Forecast()
+        public async Task<ActionResult> Forecast()
         {
-            var forecast = _wundergroundApi.Get("38.628144,-90.192860?exclude=minutely,hourly,alerts,flags");
+            var forecast = await _wundergroundApi.Get("38.628144,-90.192860?exclude=minutely,hourly,alerts,flags");
             ViewBag.High = Math.Round((float)forecast.daily.data[0].temperatureHigh);
             ViewBag.Low = Math.Round((float)forecast.daily.data[0].temperatureLow);
             ViewBag.Conditions = ((string)forecast.daily.data[0].summary).Replace(".", "");

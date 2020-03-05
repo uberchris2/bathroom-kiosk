@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Caching;
 
@@ -13,14 +14,14 @@ namespace BathroomKiosk.Services
             _wundergroundApi = wundergroundApi;
         }
 
-        public dynamic Get(string uri)
+        public async Task<dynamic> Get(string uri)
         {
             var cachedResult = HttpContext.Current.Cache[uri];
             if (cachedResult != null)
             {
                 return cachedResult;
             }
-            var response = _wundergroundApi.Get(uri);
+            var response = await _wundergroundApi.Get(uri);
             HttpContext.Current.Cache.Add(uri, response, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
             return response;
         }

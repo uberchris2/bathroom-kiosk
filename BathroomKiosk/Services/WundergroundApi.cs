@@ -7,20 +7,20 @@ namespace BathroomKiosk.Services
 {
     public class WundergroundApi
     {
-        public dynamic Get(string uri)
+        public async Task<dynamic> Get(string uri)
         {
             string result;
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://api.darksky.net/forecast/APIKEY/");
                 var success = false;
-                Task<string> response = null;
+                HttpResponseMessage response = null;
                 for (var tryCount = 0; !success && tryCount < 3; tryCount++)
                 {
-                    response = client.GetStringAsync(uri);
-                    success = !response.IsFaulted;
+                    response = await client.GetAsync(uri);
+                    success = response.IsSuccessStatusCode;
                 }
-                result = response.Result;
+                result = await response.Content.ReadAsStringAsync();
             }
             return JsonConvert.DeserializeObject(result);
         }
