@@ -7,11 +7,11 @@ namespace BathroomKiosk.Services
 {
     public class ApiCache
     {
-        private readonly WundergroundApi _wundergroundApi;
+        private readonly WeatherApi _weatherApi;
 
-        public ApiCache(WundergroundApi wundergroundApi)
+        public ApiCache(WeatherApi weatherApi)
         {
-            _wundergroundApi = wundergroundApi;
+            _weatherApi = weatherApi;
         }
 
         public async Task<dynamic> Get(string uri)
@@ -21,7 +21,7 @@ namespace BathroomKiosk.Services
             {
                 return cachedResult;
             }
-            var response = await _wundergroundApi.Get(uri);
+            var response = await _weatherApi.Get(uri);
             HttpContext.Current.Cache.Add(uri, response, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
             return response;
         }

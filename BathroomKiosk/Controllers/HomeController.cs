@@ -7,7 +7,7 @@ namespace BathroomKiosk.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApiCache _wundergroundApi = new ApiCache(new WundergroundApi());
+        private readonly ApiCache _weatherApi = new ApiCache(new WeatherApi());
 
         public ActionResult Index()
         {
@@ -16,7 +16,7 @@ namespace BathroomKiosk.Controllers
 
         public async Task<ActionResult> Forecast()
         {
-            var forecast = await _wundergroundApi.Get("38.628144,-90.192860?exclude=minutely,hourly,alerts,flags");
+            var forecast = await _weatherApi.Get("38.628144,-90.192860?exclude=minutely,hourly,alerts,flags");
             ViewBag.High = Math.Round((float)forecast.daily.data[0].temperatureHigh);
             ViewBag.Low = Math.Round((float)forecast.daily.data[0].temperatureLow);
             ViewBag.Conditions = ((string)forecast.daily.data[0].summary).Replace(".", "");

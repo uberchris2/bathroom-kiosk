@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace BathroomKiosk.Services
 {
-    public class WundergroundApi
+    public class WeatherApi
     {
         public async Task<dynamic> Get(string uri)
         {
