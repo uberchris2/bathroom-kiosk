@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Configuration;
 
 namespace BathroomKiosk.Services
 {
@@ -12,7 +13,7 @@ namespace BathroomKiosk.Services
             string result;
             using (var client = new HttpClient())
             {
-                client.BaseAddress = new Uri("https://api.darksky.net/forecast/APIKEY/");
+                client.BaseAddress = new Uri("https://api.darksky.net/forecast/" + ConfigurationManager.AppSettings["DarkskyKey"] + "/");
                 var success = false;
                 HttpResponseMessage response = null;
                 for (var tryCount = 0; !success && tryCount < 3; tryCount++)
