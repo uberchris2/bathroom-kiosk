@@ -14,15 +14,15 @@ namespace BathroomKiosk.Services
             _weatherApi = weatherApi;
         }
 
-        public async Task<dynamic> Get(string uri)
+        public async Task<dynamic> Get()
         {
-            var cachedResult = HttpContext.Current.Cache[uri];
+            var cachedResult = HttpContext.Current.Cache["weather"];
             if (cachedResult != null)
             {
                 return cachedResult;
             }
-            var response = await _weatherApi.Get(uri);
-            HttpContext.Current.Cache.Add(uri, response, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
+            var response = await _weatherApi.Get();
+            HttpContext.Current.Cache.Add("weather", response, null, DateTime.Now.AddMinutes(15), Cache.NoSlidingExpiration, CacheItemPriority.Default, null);
             return response;
         }
     }

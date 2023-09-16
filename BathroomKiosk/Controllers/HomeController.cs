@@ -16,10 +16,10 @@ namespace BathroomKiosk.Controllers
 
         public async Task<ActionResult> Forecast()
         {
-            var forecast = await _weatherApi.Get("47.7650,-122.3457?exclude=minutely,hourly,alerts,flags");
-            ViewBag.High = Math.Round((float)forecast.daily.data[0].temperatureHigh);
-            ViewBag.Low = Math.Round((float)forecast.daily.data[0].temperatureLow);
-            ViewBag.Conditions = ((string)forecast.daily.data[0].summary).Replace(".", "");
+            var forecast = await _weatherApi.Get();
+            // ViewBag.High = 
+            // ViewBag.Low = Math.Round((float)forecast.daily.data[0].temperatureLow);
+            ViewBag.Conditions = (string)forecast.properties.timeseries[0].data.next_12_hours.summary.symbol_code;
             
             return View();
         }
